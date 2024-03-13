@@ -1,1 +1,1 @@
-# god_manager_js
+# god_manager

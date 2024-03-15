@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Gods {
+  id          Int      @id @default(autoincrement())
+  pantheonId  Int
+  name        String
+  imageUrl    String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+
+  pantheon Pantheon @relation(fields: [pantheonId], references: [id])
+}
+
+model Pantheon {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  imageUrl    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+
+  gods Gods[]
+}
